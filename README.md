@@ -2,7 +2,7 @@
 
 # 需求
 - 采集 BTC 指标：MVRV Z-score 和 Pi Multiple
-- 每日自动发布到 Twitter
+- 每日自动发布到 Twitter: https://twitter.com/FreeBTCAlerts
 
 # 实现
 - 让 ChatGPT 辅助写了 index.js，采集数据，并发布到 Twitter
