@@ -2,7 +2,7 @@ name: Daily Free BTC Alerts
 
 on:
   schedule:
-    - cron: '45 9 * * *'
+    - cron: '8 0 * * *'
     
 jobs:
   trigger:
