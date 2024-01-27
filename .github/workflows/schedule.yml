@@ -1,0 +1,12 @@
+name: Daily Free BTC Alerts
+
+on:
+  schedule:
+    - cron: '45 9 * * *'
+    
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger Vercel Deployment
+      run: curl -X GET https://btc-alert-nine.vercel.app/api/index.js
