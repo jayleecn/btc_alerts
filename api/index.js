@@ -18,14 +18,15 @@ module.exports = async (req, res) => {
     const response = await axios.get('https://bitcoinition.com/current.json');
     const data = response.data.data;
 
-    // 获取当前时间并格式化为年月日时分
+    // 获取当前时间并格式化为北京时间（年月日时分）
     const now = new Date();
-    const formattedTime = now.toLocaleString('en-US', { 
-        year: 'numeric', 
-        month: 'numeric', 
-        day: 'numeric', 
-        hour: 'numeric', 
-        minute: 'numeric', 
+    const formattedTime = now.toLocaleString('zh-CN', {
+        timeZone: 'Asia/Shanghai', // 设置时区为北京时区
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
         hour12: false // 使用24小时制
     });
 
