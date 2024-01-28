@@ -54,7 +54,7 @@ async function fetchDataAndTweet() {
       console.log("Tweet sent:", tweetResponse.data);
    //  }
 
-    if (data.current_mvrvzscore <= 2 || data.current_mvrvzscore >= 7 || data.current_pimultiple >= 0) {
+    if (data.current_mvrvzscore <= 0 || data.current_mvrvzscore >= 7 || data.current_pimultiple >= 0) {
       const emailSubject = 'Free Bitcoin Alerts';
       const emailBody = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n`;
 
