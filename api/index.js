@@ -12,7 +12,7 @@ const client = new TwitterApi({
   accessSecret: process.env.ACCESS_TOKEN_SECRET,
 });
 
-// 发送邮件函数
+// 发送推特&邮件
 async function sendEmail(subject, body) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -49,14 +49,14 @@ async function fetchDataAndTweet() {
     });
 
    //  if (data.current_mvrvzscore <= 1 || data.current_mvrvzscore >= 6 || data.current_pimultiple >= -0.1) {
-      const tweet = `🕒 Current Time: ${formattedTime}（UTC+8）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://bitcoinition.com/charts/`;
+      const tweet = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://bitcoinition.com/charts/`;
       const tweetResponse = await client.v2.tweet(tweet);
       console.log("Tweet sent:", tweetResponse.data);
    //  }
 
     if (data.current_mvrvzscore <= 2 || data.current_mvrvzscore >= 7 || data.current_pimultiple >= 0) {
-      const emailSubject = 'Bitcoin Alerts';
-      const emailBody = `🕒 Current Time: ${formattedTime}（UTC+8）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n\n`;
+      const emailSubject = 'Free Bitcoin Alerts';
+      const emailBody = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n`;
 
       await sendEmail(emailSubject, emailBody);
     }
