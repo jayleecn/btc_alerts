@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Trigger Vercel Deployment
-      run: curl -X GET https://www.free-btc-alerts.com/api/index.js
+      run: curl -X GET https://free-btc-alerts.vercel.app/api/index.js
