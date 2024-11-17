@@ -2,7 +2,7 @@ name: Keep Repository Alive
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 每5分钟运行一次
+    - cron: '0 0 1 * *'  # 每月的第一天午夜运行
 
 permissions:
   contents: write
