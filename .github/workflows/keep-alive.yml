@@ -2,7 +2,10 @@ name: Keep Repository Alive
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # 每周日的午夜运行
+    - cron: '*/5 * * * *'  # 每5分钟运行一次
+
+permissions:
+  contents: write
 
 jobs:
   keep-alive:
@@ -10,15 +13,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Make a dummy change
         run: |
-          echo "Keeping the repository alive" >> keep-alive.txt
+          echo "Keeping the repository alive at $(date)" >> keep-alive.txt
           git config --local user.email "jayleecn@gmail.com"
           git config --local user.name "GitHub Actions"
           git add keep-alive.txt
-          git commit -m "Keep repository alive"
+          git commit -m "Keep repository alive: $(date)"
 
       - name: Push changes
         run: |
-          git push origin HEAD:main  # 确保将 'main' 替换为您的默认分支名称
+          git push origin HEAD:main
