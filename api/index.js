@@ -39,8 +39,13 @@ async function sendEmail(subject, body) {
 
 async function fetchDataAndTweet() {
   try {
-    const response = await axios.get('https://bitcoinition.com/current.json');
-    const data = response.data.data;
+    const [mvrvResponse, priceResponse] = await Promise.all([
+      axios.get('https://bitcoinition.com/current.json'),
+      axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
+    ]);
+    
+    const data = mvrvResponse.data.data;
+    const btcPrice = priceResponse.data.bitcoin.usd;
 
     const now = new Date();
     const formattedTime = now.toLocaleString('zh-CN', { 
@@ -49,14 +54,14 @@ async function fetchDataAndTweet() {
     });
 
    //  if (data.current_mvrvzscore <= 1 || data.current_mvrvzscore >= 6 || data.current_pimultiple >= -0.1) {
-      const tweet = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://bitcoinition.com/charts/`;
+      const tweet = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 Buy the dip, >7 Sell the peak）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 Sell the peak）\n\n💰 Bitcoin Price: ${btcPrice} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://docs.coingecko.com \n https://docs.coingecko.com/`;
       const tweetResponse = await client.v2.tweet(tweet);
       console.log("Tweet sent:", tweetResponse.data);
    //  }
 
     if (data.current_mvrvzscore <= 0 || data.current_mvrvzscore >= 7 || data.current_pimultiple >= 0) {
       const emailSubject = 'Free Bitcoin Alerts';
-      const emailBody = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 抄底，>7 逃顶）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 逃顶）\n\n💰 Bitcoin Price: ${data.btc_price} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n`;
+      const emailBody = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 Buy the dip, >7 Sell the peak）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 Sell the peak）\n\n💰 Bitcoin Price: ${btcPrice} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n`;
 
       await sendEmail(emailSubject, emailBody);
     }
