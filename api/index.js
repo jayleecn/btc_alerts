@@ -54,14 +54,14 @@ async function fetchDataAndTweet() {
     });
 
    //  if (data.current_mvrvzscore <= 1 || data.current_mvrvzscore >= 6 || data.current_pimultiple >= -0.1) {
-      const tweet = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 Buy the dip, >7 Sell the peak）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 Sell the peak）\n\n💰 Bitcoin Price: ${btcPrice} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://docs.coingecko.com \n https://docs.coingecko.com/`;
+      const tweet = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 Buy the dip, >5 Sell the peak）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 Sell the peak）\n\n💰 Bitcoin Price: ${btcPrice} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://docs.coingecko.com \n https://docs.coingecko.com/`;
       const tweetResponse = await client.v2.tweet(tweet);
       console.log("Tweet sent:", tweetResponse.data);
    //  }
 
-    if (data.current_mvrvzscore <= 0 || data.current_mvrvzscore >= 7 || data.current_pimultiple >= 0) {
+    if (data.current_mvrvzscore <= 0 || data.current_mvrvzscore >= 5 || data.current_pimultiple >= 0) {
       const emailSubject = 'Free Bitcoin Alerts';
-      const emailBody = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 Buy the dip, >7 Sell the peak）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 Sell the peak）\n\n💰 Bitcoin Price: ${btcPrice} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n`;
+      const emailBody = `📈 MVRV-Z Score: ${data.current_mvrvzscore}（<0 Buy the dip, >5 Sell the peak）\n\n🔍 PI Multiple: ${data.current_pimultiple}（>0 Sell the peak）\n\n💰 Bitcoin Price: ${btcPrice} USD\n\n🕒 Current Time: ${formattedTime}（UTC+8）\n\n🔗 Data From: https://bitcoinition.com/current.json \n https://docs.coingecko.com \n https://docs.coingecko.com/`;
 
       await sendEmail(emailSubject, emailBody);
     }
