@@ -83,15 +83,11 @@ module.exports = async (req, res) => {
     if (mvrvData) {
       tweet += `📈 MVRV-Z Score: ${mvrvData.current_mvrvzscore}（<0 Buy the dip, >5 Sell the peak）\n\n`;
       tweet += `🔍 PI Multiple: ${mvrvData.current_pimultiple}（>0 Sell the peak）\n\n`;
-    } else {
-      tweet += `⚠️ Market Indicators: Temporarily Unavailable (Source Connection Failed)\n\n`;
-    }
+    } 
 
     if (btcPrice) {
       tweet += `💰 Bitcoin Price: ${btcPrice} USD\n\n`;
-    } else {
-      tweet += `💰 Bitcoin Price: Unavailable\n\n`;
-    }
+    } 
 
     tweet += `🕒 Current Time: ${formattedTime}（UTC+8）\n\n`;
     tweet += `🔗 Data From: https://bitcoinition.com/current.json \n https://docs.coingecko.com/`;
